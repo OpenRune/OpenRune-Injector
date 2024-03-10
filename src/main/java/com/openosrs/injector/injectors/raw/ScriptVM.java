@@ -109,7 +109,7 @@ public class ScriptVM extends AbstractInjector
 		final Field scriptInstructions = InjectUtil.findField(inject, "opcodes", "Script");
 		final Field scriptStatePC = InjectUtil.findField(inject, "pc", "ScriptFrame");
 
-		final ClassFile vanillaClient = vanilla.findClass("client");
+		final ClassFile vanillaClient = vanilla.findClass("Client");
 
 		// Next 4 should be injected by mixins, so don't need fail fast
 		final Method runScript = vanillaClient.findStaticMethod("copy$runScript");
