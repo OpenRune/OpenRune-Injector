@@ -134,6 +134,7 @@ public class ScriptVM extends AbstractInjector
 		Integer instructionArrayLocalVar = null;
 		IStore currentOpcodeStore = null;
 		ALoad localInstructionLoad = null;
+		IInc pcLocalVarIncrInstruction = null;
 
 		MethodContext methodContext = pcontext.get();
 		for (InstructionContext instrCtx : methodContext.getInstructionContexts())
@@ -173,14 +174,10 @@ public class ScriptVM extends AbstractInjector
 					assert Type.INT.equals(pc.getType()) : pc.getType();
 
 					InstructionContext mulctx = pc.pushed;
-					assert mulctx.getInstruction() instanceof IMul;
-
-					pcLocalVar = mulctx.getPops().stream()
-							.map(StackContext::getPushed)
-							.filter(i -> i.getInstruction() instanceof ILoad)
-							.map(i -> ((ILoad) i.getInstruction()).getVariableIndex())
-							.findFirst()
-							.orElse(null);
+					if (mulctx.getInstruction() instanceof ILoad) {
+						pcLocalVar = ((ILoad) mulctx.getInstruction()).getVariableIndex();
+						continue;
+					}
 				}
 			}
 		}
@@ -282,6 +279,7 @@ public class ScriptVM extends AbstractInjector
 					{
 						instrIter.add(new ILoad(instrs, pcLocalVar));
 						instrIter.add(new PutStatic(instrs, currentScriptPCField));
+						pcLocalVarIncrInstruction = iinc;
 					}
 				}
 			}
@@ -297,7 +295,7 @@ public class ScriptVM extends AbstractInjector
 		int istorepc = instrs.getInstructions().indexOf(currentOpcodeStore);
 		assert istorepc >= 0;
 
-		Label nextIteration = instrs.createLabelFor(localInstructionLoad);
+		Label nextIteration = instrs.createLabelFor(pcLocalVarIncrInstruction);
 		instrs.addInstruction(istorepc + 1, new ILoad(instrs, currentOpcodeStore.getVariableIndex()));
 		instrs.addInstruction(istorepc + 2, new InvokeStatic(instrs, vmExecuteOpcode.getPoolMethod()));
 		instrs.addInstruction(istorepc + 3, new IfNe(instrs, nextIteration));
