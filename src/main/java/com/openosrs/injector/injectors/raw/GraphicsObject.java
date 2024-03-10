@@ -39,13 +39,11 @@ public class GraphicsObject extends AbstractInjector
 
 		graphicsObjectVanilla.clearFinal();
 
-		Method initGraphicsObject = new Method(graphicsObjectVanilla, "<init>", new Signature("()V"));
-		initGraphicsObject.setPublic();
+		Method initGraphicsObject = graphicsObjectVanilla.findMethod("<init>", new Signature("()V"));
 
 		final Code code = new Code(initGraphicsObject);
 		code.setMaxStack(1);
 		initGraphicsObject.setCode(code);
-		graphicsObjectVanilla.addMethod(initGraphicsObject);
 
 		Instructions ins = code.getInstructions();
 
