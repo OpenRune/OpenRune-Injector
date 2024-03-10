@@ -36,6 +36,7 @@ import com.openosrs.injector.injectors.raw.RuneliteRasterizer;
 import com.openosrs.injector.injectors.raw.ScriptVM;
 import com.openosrs.injector.injectors.raw.ServerPacketReceived;
 import com.openosrs.injector.rsapi.RSApi;
+import com.openosrs.injector.transformers.EnumInvokeVirtualFixer;
 import com.openosrs.injector.transformers.InjectTransformer;
 import com.openosrs.injector.transformers.Java8Ifier;
 import com.openosrs.injector.transformers.SourceChanger;
@@ -75,6 +76,8 @@ public class Injection extends InjectData implements InjectTaskHandler
 		log.debug("[DEBUG] Starting injection");
 
 		transform(new Java8Ifier(this));
+
+		transform(new EnumInvokeVirtualFixer(this));
 
 		inject(new CreateAnnotations(this));
 
