@@ -14,9 +14,6 @@ plugins {
     `maven-publish`
 }
 
-val oprsver = "4.31.2"
-val deviousver = "1.0.20-SNAPSHOT"
-
 group = "com.openosrs"
 version = "2.0.20"
 
@@ -24,9 +21,7 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven {
-        url = uri("https://repo.runelite.net")
         url = uri("https://raw.githubusercontent.com/jbx5/hosting/master")
-        url = uri("https://repo.openosrs.com/repository/maven")
     }
 }
 
@@ -42,9 +37,6 @@ dependencies {
         exclude(group = "com.google.errorprone", module = "error_prone_annotations")
         exclude(group = "com.google.j2objc", module = "j2objc-annotations")
         exclude(group = "org.codehaus.mojo", module = "animal-sniffer-annotations")
-    }
-    implementation("net.unethicalite:deobfuscator:${deviousver}") {
-        isTransitive = false
     }
 
     testCompileOnly(group = "com.openosrs", name = "injection-annotations", version = "1.1")
