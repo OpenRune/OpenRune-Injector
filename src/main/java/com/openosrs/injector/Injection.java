@@ -126,20 +126,20 @@ public class Injection extends InjectData implements InjectTaskHandler
 
 		inject(new ServerPacketReceived(this));
 
-		if (mode.equals("") || mode.equals("v"))
-		{
-			System.out.println("Inject Vanilla");
-			inject(new PlatformInfoVanilla(this));
-		}
-		else if (mode.equals("r"))
-		{
-			System.out.println("Inject Runelite & Vanilla");
-			inject(new PlatformInfoRunelite(this));
+//		if (mode.equals("") || mode.equals("v"))
+//		{
+//			System.out.println("Inject Vanilla");
+//			inject(new PlatformInfoVanilla(this));
+//		}
+//		else if (mode.equals("r"))
+//		{
+//			System.out.println("Inject Runelite & Vanilla");
+//			inject(new PlatformInfoRunelite(this));
+//
+//			inject(new DesktopPlatformInfoProviderRunelite(this));
+//		}
 
-			inject(new DesktopPlatformInfoProviderRunelite(this));
-		}
-
-		inject(new JagexLauncherCredentials(this));
+//		inject(new JagexLauncherCredentials(this));
 
 		validate(new InjectorValidator(this));
 

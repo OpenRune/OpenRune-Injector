@@ -51,10 +51,7 @@ public class RuneliteMenuEntry extends AbstractInjector
 	{
 		ClassFile runeliteMenuEntryVanilla = inject.getVanilla().findClass(RUNELITE_MENU_ENTRY);
 
-		final ClassFile clientVanilla = inject.toVanilla(
-				inject.getDeobfuscated()
-						.findClass("Client")
-		);
+		final ClassFile clientVanilla = inject.getVanilla().findClass("Client");
 
 		Method copy = clientVanilla.findMethod(methodName);
 

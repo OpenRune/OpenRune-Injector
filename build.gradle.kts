@@ -14,8 +14,8 @@ plugins {
     `maven-publish`
 }
 
-group = "com.openosrs"
-version = "2.0.20"
+group = "dev.openrune"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
